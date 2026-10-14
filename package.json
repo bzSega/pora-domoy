@@ -1,0 +1,18 @@
+{
+  "name": "pora-domoy",
+  "version": "1.3.1",
+  "private": true,
+  "description": "Travel time on a browser badge, with local route settings",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test tests/2026-10-12_extension.test.cjs tests/2026-10-13_release.test.cjs",
+    "test:live": "node tests/2026-10-12_background-e2e.cjs",
+    "build": "python3 scripts/2026-10-14_build.py"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}

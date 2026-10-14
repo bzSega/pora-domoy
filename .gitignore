@@ -1,0 +1,15 @@
+node_modules/
+dist/
+res/
+.DS_Store
+*.crx
+*.pem
+*.key
+.env
+.env.*
+test-results/
+playwright-report/
+# Internal working materials must never be copied into this publication repository.
+docs/
+store/
+TODO.md

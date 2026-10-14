@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Пора домой</title><link rel="stylesheet" href="popup.css"><script src="core.js" defer></script><script src="popup.js" defer></script></head>
+<body>
+  <header><img class="mark" src="icons/128.png" width="44" height="44" alt="" aria-hidden="true"><div><span id="directionLabel" class="eyebrow">РАБОТА → ДОМ</span><h1>Пора домой</h1></div><button id="settingsButton" class="icon" title="Настроить маршрут" aria-label="Настроить маршрут">⚙</button></header>
+  <main>
+    <section id="dashboard" hidden>
+      <div class="hero"><span class="eyebrow">НА МАШИНЕ</span><div id="duration">—</div><p id="detail">Постройте маршрут</p><p class="source">По данным <a href="https://yandex.ru/maps/" target="_blank" rel="noopener noreferrer">Яндекс Карт</a></p><span id="freshness" class="pill">Нет данных</span></div>
+      <section class="route-map" aria-label="Маршрут в Яндекс Картах"><iframe id="routeMap" title="Автомобильный маршрут в Яндекс Картах" referrerpolicy="no-referrer"></iframe><p class="hint">Карта интерактивная. Число сверху — последний прочитанный расчёт.</p></section>
+      <p id="status" class="status" role="status"></p>
+      <div class="actions"><button id="refresh" class="primary">Обновить время</button><button id="open">Открыть в Картах ↗</button></div>
+      <button id="reverse" class="wide">⇄ Поехать на работу</button>
+      <label class="toggle"><input type="checkbox" id="auto">Обновлять каждые 5 минут</label>
+      <p id="autoStatus" class="hint" role="status"></p>
+      <details id="schedulePanel"><summary>Дни и часы автообновления</summary>
+        <label class="toggle"><input id="scheduleEnabled" type="checkbox">Только в выбранное время</label>
+        <fieldset id="scheduleFields"><legend>Дни начала периода</legend><div class="days">
+          <label><input type="checkbox" name="day" value="1" checked>Пн</label><label><input type="checkbox" name="day" value="2" checked>Вт</label><label><input type="checkbox" name="day" value="3" checked>Ср</label><label><input type="checkbox" name="day" value="4" checked>Чт</label><label><input type="checkbox" name="day" value="5" checked>Пт</label><label><input type="checkbox" name="day" value="6">Сб</label><label><input type="checkbox" name="day" value="0">Вс</label>
+        </div><div class="actions"><label>С<input type="time" id="scheduleStart" value="16:00"></label><label>До<input type="time" id="scheduleEnd" value="21:00"></label></div></fieldset>
+        <p class="hint">По местному времени компьютера. Если конец раньше начала, период продолжается на следующий день. Кнопка «Обновить» работает в любое время.</p>
+        <button id="saveSchedule" class="wide">Сохранить расписание</button><p id="scheduleFeedback" class="hint" role="status"></p>
+      </details>
+      <p id="modeHint" class="hint">Время обновляется в фоне. Вкладку Карт можно закрыть.</p>
+      <details><summary>Если время не обновляется</summary><p class="hint">Проверьте интернет и попробуйте обновить ещё раз. Если Карты требуют проверку или вход, откройте маршрут. Можно переключиться на чтение из открытой вкладки.</p><label for="mode">Как получать время</label><select id="mode"><option value="background">В фоне — без вкладки</option><option value="tab">Из открытой вкладки</option></select></details>
+    </section>
+    <section id="setup">
+      <h2>Ваш путь домой</h2><p class="intro">Один раз выберите работу и дом в Яндекс Картах — дальше время будет под рукой.</p>
+      <details id="addressForm"><summary>Построить маршрут по адресам</summary>
+        <label>Работа<input id="from" autocomplete="off" placeholder="Город, улица, дом" maxlength="300"></label>
+        <label>Дом<input id="to" autocomplete="off" placeholder="Город, улица, дом" maxlength="300"></label>
+        <p class="hint">При нажатии кнопки адреса отправятся Яндексу, а их черновик сохранится в этом браузере до сохранения маршрута или удаления данных.</p>
+        <button id="build">Выбрать маршрут в Картах ↗</button>
+        <p class="hint">Проверьте точки. Затем нажмите значок расширения прямо на вкладке Карт и выберите «Взять из текущей вкладки».</p>
+      </details>
+      <label for="route">Ссылка на автомобильный маршрут</label><textarea id="route" rows="3" placeholder="https://yandex.ru/maps/…" spellcheck="false"></textarea>
+      <button id="import" class="wide">Взять из текущей вкладки</button>
+      <p class="hint">Либо вставьте ссылку из адресной строки Карт. Короткие ссылки не подходят. Сохранится путь между двумя точками, с отправлением сейчас и стандартными настройками дорог.</p>
+      <p class="disclosure">При сохранении и открытии панели координаты маршрута передаются Яндексу для расчёта и показа карты. Автообновление включается отдельно. Маршрут хранится в этом браузере; разработчик его не получает. <a href="privacy.html" target="_blank" rel="noopener">Подробнее о данных</a></p>
+      <button id="save" class="primary wide">Сохранить и получить время</button>
+      <button id="cancel" class="wide" hidden>Вернуться</button>
+      <button id="reset" class="text-button" hidden>Удалить маршрут и настройки</button>
+      <div id="resetConfirm" class="disclosure" hidden><p>Удалить маршрут, адреса и настройки из расширения?</p><div class="actions"><button id="confirmReset">Удалить</button><button id="cancelReset">Оставить</button></div></div>
+    </section>
+    <p id="error" role="alert" hidden></p>
+  </main>
+  <footer><span id="version"></span> · Независимое расширение<p>Для личных поездок · «Как есть» · <a href="terms.html" target="_blank" rel="noopener">Условия использования</a></p><details><summary>Как это работает</summary><p>Источник — Яндекс Карты. Для обновления расширение временно загружает виджет Карт в фоне, читает время с пробками и освобождает память. Это не официальный продукт Яндекса. При изменении сайта чтение может перестать работать.</p><p>Значок показывает минуты. Через 10 минут данные устаревают: знак вопроса на значке означает последнюю, а не свежую оценку. Через сутки результат удаляется при следующем запуске или обращении к расширению. Отметка времени означает момент чтения, а не измерения пробок. Когда браузер закрыт или компьютер спит, обновления не выполняются.</p><p><a href="privacy.html" target="_blank" rel="noopener">Конфиденциальность и разрешения</a> · <a href="https://yandex.ru/legal/maps_termsofuse/ru/" target="_blank" rel="noopener noreferrer">Условия Яндекс Карт</a></p><button id="diagnostics" class="wide">Показать диагностику без адресов</button><textarea id="diagnosticsText" rows="6" aria-label="Диагностика без адресов" readonly hidden></textarea></details></footer>
+</body></html>
